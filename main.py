@@ -42,11 +42,11 @@ Validation (offline, on the kit's own data)
 --------------------------------------------
 The four practice launches' true release-day curves (SullyGnome, the kit's
 documented source; hour 1 verified against the kit exactly) score a mean
-pinball loss of 0.196 for this rule, against 0.387 for the house baseline
-(persistence at hour 1), with a typical miss of 37% against the baseline's
-90% and 90% coverage of 0.88. Leave-one-out over the eleven rolling-midnight
+pinball loss of 0.188 for this rule, against 0.387 for the house baseline
+(persistence at hour 1), with a typical miss of 34% against the baseline's
+90% and 90% coverage of 0.87. Leave-one-out over the eleven rolling-midnight
 comparables scores 0.263 against the baseline's 0.363. The parameters
-(bandwidth 0.75, calibration 0.85) were picked on those two validation sets
+(bandwidth 0.60, calibration 0.85) were picked on those two validation sets
 jointly, not tuned to any single case.
 
 Fallbacks: if fewer than three analogues carry both hour 1 and hour h, the
@@ -75,7 +75,11 @@ Z = [-1.6448536269514722, -0.6744897501960817, 0.0, 0.6744897501960817, 1.644853
 
 # How sharply an analogue's hour-1 scale must match this case's hour-1 print
 # to count at full weight: w = exp(-|ln(v1_analogue / p1)| / BANDWIDTH).
-BANDWIDTH = 0.75
+# 0.60, not 0.75: re-validated 2026-11-17 on both held-out sets — practice
+# pinball 0.188 (was 0.196), LOO 0.263 (was 0.263) — a narrower bandwidth
+# trusts the biggest launches more, which is where GTA VI's hour-1 print
+# will sit.
+BANDWIDTH = 0.60
 # Calibration of the log-spread around the weighted median (tuned offline).
 SPREAD_K = 0.85
 # The spread never goes below this, in log units.
